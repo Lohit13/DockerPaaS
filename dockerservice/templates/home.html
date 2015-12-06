@@ -1,0 +1,116 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+  <link rel="stylesheet" href="{% static "dist/css/flat-ui.css" %}">
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Instant docker services</title>
+
+    <!-- Loading Bootstrap -->
+    <link href="{% static "dist/css/vendor/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="{% static "dist/css/flat-ui.css" %}" rel="stylesheet">
+    <link href="{% static "docs/assets/css/demo.css" %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
+
+  </head>
+
+  <body>
+  	<div style="text-align:right;padding-right:0.7cm;padding-top:0.5cm;"><a href="/logout">Logout</a></div>
+  
+    <div class="container">
+      <div class="demo-headline">
+        <h1 class="demo-logo">
+          <div class="logo"></div>
+          <small>Create an Instance</small>
+        </h1>
+      </div> <!-- /demo-headline -->
+
+
+      
+     
+
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class = "col-md-6">
+        <form action = "/home/" method = "POST">
+        {% csrf_token %}
+          <div class="login-form">
+            <div class="form-group">
+              <input type="text" class="form-control login-field" value="" placeholder="User Name" id="login-name" name = "name"/>
+              <label class="login-field-icon fui-user" for="login-name"></label>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control login-field" value="" placeholder="Password" id="login-pass" name = "pass" />
+              <label class="login-field-icon fui-lock" for="login-pass"></label>
+            </div>
+            <button type = "submit" class="btn btn-primary btn-lg btn-block">Create new Instance</button>
+          </div>
+        </form>
+        {% if msg %}
+        <center>
+        <div>
+          <h5 id = 'msg'>{{msg}}</h5>
+        </div>
+        </center>
+        {% endif %}
+        <br><br>
+        <center>
+        <div style="width:30%;">
+          <a href="/dashboard/"><button class="btn btn-primary btn-lg">Manage Instances</button></a>
+        </div>
+        </center>
+        </div>
+      </div>
+
+    </footer>
+      
+
+
+    <script src="{% static "dist/js/vendor/jquery.min.js" %}"></script>
+    <script src="{% static "dist/js/vendor/video.js" %}"></script>
+    <script src="{% static "dist/js/flat-ui.min.js" %}"></script>
+    <script src="{% static "docs/assets/js/application.js" %}"></script>
+
+      {% if msg %}
+
+
+    <script type="text/javascript">
+
+     var run = 1;
+
+      function checkStatus(name){
+        $.ajax({
+          url: '/check/' + name,
+          type: 'GET',
+          success: function(data) {
+            if (data == "1")
+            {
+              run = 0;
+              $("#msg").html("Instance Created!");
+            }
+          },
+          error: function(e) {}
+        });
+      }
+
+      function myLoop () {           //  create a loop function
+         setTimeout(function () {    
+            checkStatus("{{ reqname }}");
+            if (run == 1) {            
+               myLoop();             
+            }                        
+         }, 1000)
+      }
+
+      myLoop();                      //  start the loop
+
+    </script>
+
+      {% endif %}
+
+  </body>
+</html>

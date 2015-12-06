@@ -1,0 +1,80 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+  <link rel="stylesheet" href="{% static "dist/css/flat-ui.css" %}">
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Instant docker services</title>
+
+    <!-- Loading Bootstrap -->
+    <link href="{% static "dist/css/vendor/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="{% static "dist/css/flat-ui.css" %}" rel="stylesheet">
+    <link href="{% static "docs/assets/css/demo.css" %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
+
+  </head>
+
+  <body>
+  <div style="text-align:right;padding-right:0.7cm;padding-top:0.5cm;"><a href="/logout">Logout</a></div>
+
+  
+    <div class="container">
+      <div class="demo-headline">
+        <h1 class="demo-logo">
+          <div class="logo"></div>
+          <small>Dashboard</small>
+        </h1>
+      </div> <!-- /demo-headline -->
+
+
+      
+     
+
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class = "col-md-6">
+        
+          <table class="table">
+            <thead>
+              <tr>
+                <th>User Name</th>
+                <th>IP</th>
+                <th>Password</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for instance in instances %}
+              <tr>
+                <td>{{instance.name}}</td>
+                <td>{{instance.vm.ip}}</td>
+                <td>{{instance.password}}</td>
+                <td><a href="/destroy/{{instance.name}}/"><button class="btn btn-primary btn-sm">Delete</button></a></td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        
+        </div>
+        <br><br>
+        <center>
+        <div style="width:30%;">
+          <a href="/home/"><button class="btn btn-primary btn-md">Create Another Instance</button></a>
+        </div>
+        </center>
+      </div>
+
+    </footer>
+      
+
+
+    <script src="{% static "dist/js/vendor/jquery.min.js" %}"></script>
+    <script src="{% static "dist/js/vendor/video.js" %}"></script>
+    <script src="{% static "dist/js/flat-ui.min.js" %}"></script>
+    <script src="{% static "docs/assets/js/application.js" %}"></script>
+
+  </body>
+</html>

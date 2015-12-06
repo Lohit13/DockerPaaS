@@ -1,0 +1,14 @@
+---
+
+- name: Start process of destroying a docker instance
+  hosts: vm
+  user: root
+  gather_facts: False
+  tasks:
+    - name: Load all variables
+      include_vars: variables2.yml
+    - name: Test connection
+      ping:
+    - name: Set up
+      include: tasks/destroy.yml
+

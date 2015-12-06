@@ -1,0 +1,10 @@
+---
+
+user: "sysadmin"
+password: "$6$rounds=656000$04rku0WBBuJWIn24$t6usUNDLabe92TtljaEwsaHmPELHqLhyyVr/wYFEbG90AysqCil8ghrG5gQetHB0B9e79AZ1JvG9QnXZcoogR/"
+
+dockercmd: "docker run -d --name sysadmin -it ubuntu"
+
+linetoadd1: "me=`whoami`"
+linetoadd2: "if [ $me == 'sysadmin' ]; then"
+linetoadd3: "  docker exec -it sysadmin /bin/bash\nfi"

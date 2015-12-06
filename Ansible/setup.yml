@@ -1,0 +1,11 @@
+---
+
+- name: Start process of creating new docker instance
+  hosts: vm
+  user: root
+  gather_facts: False
+  tasks:
+    - name: Test connection
+      ping:
+    - name: Start of docker installation
+      include: tasks/docker.yml

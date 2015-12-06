@@ -1,0 +1,11 @@
+---
+- name: Add new user for docker instance
+  user: name="{{user}}" state=absent
+
+- name: Stop the docker instance
+  shell: "docker stop {{user}}"
+  sudo: True
+
+- name: Remove the docker instance
+  shell: "docker rm {{user}}"
+  sudo: True

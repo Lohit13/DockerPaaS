@@ -1,0 +1,30 @@
+---
+- name: Add new user for docker instance
+  user: name="{{user}}" password={{password}} shell=/bin/bash
+
+- name: Add user ubuntu to the docker group 
+  user:
+    name: "{{user}}"
+    groups: docker,
+    append: True
+  sudo: True
+
+- name: Run the new docker instance
+  shell: "{{dockercmd}}"
+  sudo: True
+
+- name: Update /etc/profile for docker start 1
+  lineinfile: dest=/etc/profile line="{{linetoadd1}}"
+  sudo: True
+
+- name: Update /etc/profile for docker start 2
+  lineinfile: dest=/etc/profile line="{{linetoadd2}}"
+  sudo: True
+
+- name: Update /etc/profile for docker start 3
+  lineinfile: dest=/etc/profile line="{{linetoadd3}}"
+  sudo: True
+
+- name: Update /etc/profile for docker start 4
+  lineinfile: dest=/etc/profile line="{{linetoadd3}}"
+  sudo: True
